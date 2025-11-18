@@ -45,13 +45,6 @@ app.post('/notas',(req,res) => {
     );
 });
 
-//inicia o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
-
-
-
 
 ////acrescentar as seguinte rotas
 //buscar 
@@ -90,3 +83,16 @@ app.delete("/notas/:id", (req, res) => {
   });
 });
 
+//inicia o servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
+
+app.get("/notas", (req, res) => {
+    db.all("SELECT * FROM notas", (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(rows);
+    });
+});
